@@ -1,0 +1,47 @@
+class Solution {
+    public int dayOfYear(String date) {
+        String[] parts = date.split("-");
+
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int day = Integer.parseInt(parts[2]);
+
+        int count = 0;
+
+        for (int m = 1; m <= month; m++) {
+            int days = 0;
+
+            for (int d = 1; ; d++) {
+                if (m == 2) {
+                    if (isLeapYear(year)) {
+                        if (d > 29) break;
+                    } else {
+                        if (d > 28) break;
+                    }
+                } 
+                else if (m == 4 || m == 6 || m == 9 || m == 11) {
+                    if (d > 30) break;
+                } 
+                else {
+                    if (d > 31) break;
+                }
+
+                days++;
+            }
+
+            if (m == month) {
+                count += day;
+            } else {
+                count += days;
+            }
+        }
+
+        return count;
+    }
+
+    public boolean isLeapYear(int year) {
+        if (year % 400 == 0) return true;
+        if (year % 100 == 0) return false;
+        return year % 4 == 0;
+    }
+}
